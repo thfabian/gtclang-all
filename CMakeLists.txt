@@ -35,7 +35,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Make sure the gitsubmodules were cloned correctly
 macro(gtclangall_check_submodule module)
-  if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/${module}")
+  if(NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/${module}")
     message(FATAL_ERROR 
             "Missing git-submodule: ${module}\nRun:\n  git submodule update --init --recursive\n")
   endif()
