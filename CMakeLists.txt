@@ -34,6 +34,9 @@ cmake_minimum_required(VERSION 3.3)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Make sure all git submodules are up-to-date
+include(GTClangAllDefinitions)
+include(GTclangAllOptions)
+
 include(GTClangAllGitInit)
 dawn_git_submodule_init()
 
@@ -41,19 +44,34 @@ include(DawnCMakeInit)
 set(DAWN_ROOT "${CMAKE_CURRENT_LIST_DIR}/dawn")
 dawn_cmake_init()
 
-# list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(DawnAddTargetCleanAll)
+include(DawnCheckInSourceBuild)
+include(DawnGetArchitectureInfo)
+include(DawnGetCompilerInfo)
+include(DawnGetPlatformInfo)
+include(DawnMakeStringPair)
+include(DawnReportResult)
 
-# include(Macros)
-# include(ExternalProject)
+dawn_get_compiler_info()
+dawn_get_platform_info()
+dawn_get_architecture_info()
 
-# # Prevent in source builds
-# gsl_check_in_source_build()
+# Prevent in source builds
+dawn_check_in_source_build()
 
-# # Set default download dir
-# gsl_set_default_download_dir()
+# Add custom targets
+dawn_add_target_clean_all()
 
-# # Custom targets
-# gsl_add_target_clean_all()
+# Output summary of the configuration
+macro(make_config_string FIRST SECOND)
+  dawn_make_string_pair(${FIRST} ": ${SECOND}" 20 out)
+  list(APPEND config_info ${out})
+endmacro()
+make_config_string("Platform" ${DAWN_PLATFORM_STRING})
+make_config_string("Architecture" ${DAWN_ARCHITECTURE_STRING})
+make_config_string("Compiler" ${DAWN_COMPILER_STRING})
+make_config_string("Build type" ${CMAKE_BUILD_TYPE})
+dawn_report_result("Configuration summary" ${config_info})
 
 # # Set default CMake arguments
 # option(BUILD_SHARED_LIBS "Build shared libraries" ON)

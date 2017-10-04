@@ -21,11 +21,16 @@
 #
 #   > git submodule update --init --remote
 #
-macro(dawn_git_submodule_init)
+function(dawn_git_submodule_init)
+  if(GTCLANG_ALL_NO_GIT_UPDATE)
+    return()
+  endif()
+
   find_program(git_executable "git")
   if(NOT(git_executable))
     message(FATAL_ERROR "ERROR: git not FOUND!")
   endif()
+  mark_as_advanced(git_executable)
 
   message(STATUS "Updating git-submodules ...")
   execute_process(
@@ -41,4 +46,4 @@ macro(dawn_git_submodule_init)
   else()
     message(STATUS "Successfully updated git-submodules")
   endif()
-endmacro()
+endfunction()
