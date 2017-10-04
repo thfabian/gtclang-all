@@ -10,13 +10,14 @@ This repository contains git submodules for gtclang project: [Dawn](https://gith
 This project solely requires a a C++11 compiler and [CMake](https://cmake.org/).
 
 ```bash
+git clone https://github.com/thfabian/gtclang-all.git --recursive
 mkdir build && cd build
 cmake ..
 make
 make install
 ```
 
-This will install all the gtclang projects locally into `<gtclang-dir>/install/`. 
+This will install all the gtclang projects locally into `<gtclang-dir>/install/`. Note that it is *important* to clone the repository **recursivly**.
 
 ## Continuous Integration
 
