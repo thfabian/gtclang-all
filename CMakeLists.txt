@@ -33,16 +33,9 @@ cmake_minimum_required(VERSION 3.3)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# Make sure the gitsubmodules were cloned correctly
-macro(gtclangall_check_submodule module)
-  if(NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/${module}")
-    message(FATAL_ERROR 
-            "Missing git-submodule: ${module}\nRun:\n  git submodule update --init --recursive\n")
-  endif()
-endmacro()
-
-gtclangall_check_submodule("dawn")
-gtclangall_check_submodule("gtclang")
+# Make sure all git submodules are up-to-date
+include(GTClangAllGitInit)
+dawn_git_submodule_init()
 
 include(DawnCMakeInit)
 set(DAWN_ROOT "${CMAKE_CURRENT_LIST_DIR}/dawn")
