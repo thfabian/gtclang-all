@@ -17,7 +17,7 @@ make
 make install
 ```
 
-This will install all the gtclang projects locally into `<gtclang-dir>/install/`. Note that it is *important* to clone the repository **recursivly**.
+This will install all the gtclang projects locally into `<gtclang-dir>/install/`. Note that it is *important* to clone the repository **recursively**.
 
 ## Continuous Integration
 
