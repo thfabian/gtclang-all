@@ -14,14 +14,14 @@
 ##
 ##===------------------------------------------------------------------------------------------===##
 
-# dawn_git_submodule_init
-# -----------------------
+# gtclang_all_git_submodule_init
+# ------------------------------
 #
 # Update all git-submodules to use the current master branch. This effectively runs:
 #
 #   > git submodule update --init --remote
 #
-function(dawn_git_submodule_init)
+function(gtclang_all_git_submodule_init)
   if(GTCLANG_ALL_NO_GIT_UPDATE)
     return()
   endif()
