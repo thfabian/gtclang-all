@@ -56,16 +56,25 @@ function(dawn_git_submodule_init)
 
   message(STATUS "Updating git-submodules ...")
 
+  # Check for updates
   run_git("submodule")
+  set(updated)
   string(REGEX REPLACE "\n" ";" output "${out_var}")
   foreach(line ${output})
     string(SUBSTRING "${line}" "0" "1" plus)
     if("${plus}" STREQUAL "+")
       string(SUBSTRING "${line}" "42" "-1" project)
-      message(STATUS "Updated ${project}")
+      message(STATUS "Updating ${project} ...")
+      list(APPEND updated "+")
     endif()
   endforeach()
 
+  # Update the modules
   run_git("submodule" "update" "--init" "--remote")
+
+  if("${updated}" STREQUAL "")
+    message(STATUS "Nothing to update")
+  endif()
+
   message(STATUS "Successfully updated git-submodules")
 endfunction()
