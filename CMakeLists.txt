@@ -33,13 +33,13 @@ cmake_minimum_required(VERSION 3.3)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# Make sure all git submodules are up-to-date
 include(GTClangAllDefinitions)
-include(GTclangAllOptions)
 
+# Make sure all git submodules are up-to-date (Dawn and gtclang)
 include(GTClangAllGitInit)
-dawn_git_submodule_init()
+gtclang_all_git_submodule_init()
 
+# Bootstrap Dawn CMake modules
 include(DawnCMakeInit)
 set(DAWN_ROOT "${CMAKE_CURRENT_LIST_DIR}/dawn")
 dawn_cmake_init()
@@ -52,6 +52,9 @@ include(DawnGetPlatformInfo)
 include(DawnMakeStringPair)
 include(DawnReportResult)
 
+# Include all options (including all Dawn and GTClang options)
+include(GTClangAllOptions)
+
 dawn_get_compiler_info()
 dawn_get_platform_info()
 dawn_get_architecture_info()
@@ -60,7 +63,10 @@ dawn_get_architecture_info()
 dawn_check_in_source_build()
 
 # Add custom targets
-dawn_add_target_clean_all()
+dawn_add_target_clean_all(
+  "${CMAKE_BINARY_DIR}/prefix"  
+  "${CMAKE_BINARY_DIR}/thirdparty"
+)
 
 # Output summary of the configuration
 macro(make_config_string FIRST SECOND)
@@ -73,23 +79,9 @@ make_config_string("Compiler" ${DAWN_COMPILER_STRING})
 make_config_string("Build type" ${CMAKE_BUILD_TYPE})
 dawn_report_result("Configuration summary" ${config_info})
 
-# # Set default CMake arguments
-# option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+# Build all dependencies
+add_subdirectory(thirdparty)
 
-# set(GSL_DEFAULT_ARGS
-#   "-DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}"
-#   "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
-#   "-DCMAKE_CXX_COMPILER:PATH=${CMAKE_CXX_COMPILER}"
-#   "-DCMAKE_C_COMPILER:PATH=${CMAKE_C_COMPILER}"
-# )
-
-# include(Projects)
-# add_subdirectory(thirdparty)
-
-# # Set default CMake arguments
-# option(ENABLE_TESTS "Build integration and unittets" OFF)
-# option(ENABLE_EXAMPLES "Build examples" OFF)
-# option(USE_GPU "Use CUDA backend for benchmarking" OFF)
-
-# include(External_gsl)
-# include(External_gridtools_clang)
+# Build the projects
+# include(External_Dawn)
+# include(External_GTClang)
