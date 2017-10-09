@@ -32,18 +32,40 @@ function(dawn_git_submodule_init)
   endif()
   mark_as_advanced(git_executable)
 
-  message(STATUS "Updating git-submodules ...")
-  execute_process(
-    COMMAND "${git_executable}" "submodule" "update" "--init" "--remote"
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    RESULT_VARIABLE result
-    OUTPUT_VARIABLE out_var
-    ERROR_VARIABLE error_var
-  )
+  macro(run_git)
+    unset(result)
+    unset(out_var)
+    unset(error_var)
+    set(cmd "${git_executable}")
+    foreach(arg ${ARGN})
+      set(cmd ${cmd} "${arg}")
+    endforeach()
 
-  if(NOT("${result}" STREQUAL "0"))
-    message(FATAL_ERROR "${error_var}\n\nERROR: failed to update git submodules")
-  else()
-    message(STATUS "Successfully updated git-submodules")
-  endif()
+    execute_process(
+      COMMAND ${cmd}
+      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+      RESULT_VARIABLE result
+      OUTPUT_VARIABLE out_var
+      ERROR_VARIABLE error_var
+    )
+
+    if(NOT("${result}" STREQUAL "0"))
+      message(FATAL_ERROR "${error_var}\n\nERROR: failed to run \"${cmd}\"\n\n${error_var}")
+    endif()
+  endmacro()
+
+  message(STATUS "Updating git-submodules ...")
+
+  run_git("submodule")
+  string(REGEX REPLACE "\n" ";" output "${out_var}")
+  foreach(line ${output})
+    string(SUBSTRING "${line}" "0" "1" plus)
+    if("${plus}" STREQUAL "+")
+      string(SUBSTRING "${line}" "42" "-1" project)
+      message(STATUS "Updated ${project}")
+    endif()
+  endforeach()
+
+  run_git("submodule" "update" "--init" "--remote")
+  message(STATUS "Successfully updated git-submodules")
 endfunction()
