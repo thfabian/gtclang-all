@@ -39,7 +39,8 @@ include(GTClangAllMakePackageInfo)
 #    REQUIRED_VARS:LIST=<>    - Variables which need to be TRUE to consider the package as 
 #                               found. By default we check that <PACKAGE>_FOUND is TRUE.
 #    VERSION_VAR:STRING=<>    - Name of the variable which is defined by the find_package command
-#                               if the package is found. By default we use <PACKAGE>_VERSION.
+#                               to provide the version. By default we use <PACKAGE>_VERSION (or a 
+#                               variation thereof).
 #    BUILD_VERSION:STRING=<>  - Version of the package which is built (if required)
 #    DEPENDS:LIST=<>          - Dependencies of this package.
 #
@@ -109,12 +110,28 @@ macro(gtclang_all_find_package)
 
       # Try to detect the version we just found
       if(DEFINED ARG_VERSION_VAR)
+        # Try the user variable
         set(version "${${ARG_VERSION_VAR}}")
-      elseif(${ARG_PACKAGE}_VERSION)
+      elseif(DEFINED ${ARG_PACKAGE}_VERSION_MAJOR AND 
+             DEFINED ${ARG_PACKAGE}_VERSION_MINOR AND 
+             DEFINED ${ARG_PACKAGE}_VERSION_PATCH)
+        # SemVer (X.Y.Z)
+        set(version 
+            "${${ARG_PACKAGE}_VERSION_MAJOR}.${${ARG_PACKAGE}_VERSION_MINOR}.${${ARG_PACKAGE}_VERSION_PATCH}")
+      elseif(DEFINED ${ARG_PACKAGE}_MAJOR_VERSION AND 
+             DEFINED ${ARG_PACKAGE}_MINOR_VERSION AND 
+             DEFINED ${ARG_PACKAGE}_SUBMINOR_VERSION)
+        # Boost SemVer
+        set(version 
+            "${${ARG_PACKAGE}_MAJOR_VERSION}.${${ARG_PACKAGE}_MINOR_VERSION}.${${ARG_PACKAGE}_SUBMINOR_VERSION}")
+      elseif(DEFINED ${ARG_PACKAGE}_VERSION)
+        # Standard <PACKAGE>_VERSION
         set(version "${${ARG_PACKAGE}_VERSION}")
-      elseif(${package_upper}_VERSION)
+      elseif(DEFINED ${package_upper}_VERSION)
+        # <PACKAGE>_VERSION with <PACKAGE> all uppercase
         set(version "${${package_upper}_VERSION}")
       else()
+        # give up!
         set(version "unknown")
       endif()
 
