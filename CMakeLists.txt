@@ -83,5 +83,5 @@ dawn_report_result("Configuration summary" ${config_info})
 add_subdirectory(thirdparty)
 
 # Build the projects
-# include(External_Dawn)
-# include(External_GTClang)
+include(External_Dawn)
+include(External_GTClang)
