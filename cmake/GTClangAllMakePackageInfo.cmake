@@ -20,18 +20,28 @@
 # Append a package info string to the global variable GTCLANG_ALL_PACKAGE_INFO for PACKAGE.
 #
 #    PACKAGE_NAME:STRING=<>      - Name of the package
+#    PACKAGE_VERSION:STRING=<>   - Version of the package
 #    USE_SYSTEM:BOOL=<>          - Do we use the system version of the package?
 #
-macro(gtclang_all_make_package_info PACKAGE_NAME USE_SYSTEM)
+function(gtclang_all_make_package_info PACKAGE_NAME PACKAGE_VERSION USE_SYSTEM)
   string(LENGTH ${PACKAGE_NAME} package_name_length)
   math(EXPR indent_length "20 - ${package_name_length}")
 
   set(full_indent "                    ") 
   string(SUBSTRING ${full_indent} "0" "${indent_length}" indent)
 
-  if(${USE_SYSTEM})
-    set(GTCLANG_ALL_PACKAGE_INFO "${PACKAGE_NAME}${indent}: found;${GTCLANG_ALL_PACKAGE_INFO}")
-  else()
-    set(GTCLANG_ALL_PACKAGE_INFO "${GTCLANG_ALL_PACKAGE_INFO};${PACKAGE_NAME}${indent}: building")
+  set(version_str "")
+  if(NOT(PACKAGE_VERSION STREQUAL ""))
+    set(version_str "(ver ${PACKAGE_VERSION})")
   endif()
-endmacro()
+
+  if(${USE_SYSTEM})
+    set(GTCLANG_ALL_PACKAGE_INFO 
+      "${PACKAGE_NAME}${indent}: found ${version_str};${GTCLANG_ALL_PACKAGE_INFO}" 
+      CACHE INTERNAL "" FORCE)
+  else()
+    set(GTCLANG_ALL_PACKAGE_INFO 
+      "${GTCLANG_ALL_PACKAGE_INFO};${PACKAGE_NAME}${indent}: building ${version_str}" 
+      CACHE INTERNAL "" FORCE)
+  endif()
+endfunction()

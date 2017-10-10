@@ -42,6 +42,7 @@ gtclang_all_find_package(
   PACKAGE Protobuf
   PACKAGE_ARGS ${protobuf_version_short} NO_MODULE QUIET
   FORWARD_VARS Protobuf_DIR
+  BUILD_VERSION ${protobuf_version}
 )
 
 #
@@ -59,6 +60,7 @@ gtclang_all_find_package(
   PACKAGE Boost
   PACKAGE_ARGS ${boost_min_version} COMPONENTS ${boost_components}
   FORWARD_VARS BOOST_ROOT Boost_LIBRARY_DIRS Boost_INCLUDE_DIRS
+  BUILD_VERSION ${boost_download_version}
 )
 
 #
@@ -83,16 +85,17 @@ set(llvm_clang_url_libcxxabi
     "http://releases.llvm.org/${llvm_clang_version}/libcxxabi-${llvm_clang_version}.src.tar.xz")
 set(llvm_clang_md5_libcxxabi "bbe6b4d72c7c5978550d370af529bcf7")
 
-# gtclang_all_find_package(
-#   PACKAGE Clang
-#   PACKAGE_ARGS ${llvm_clang_version_short} REQUIRED
-#   FORWARD_VARS CLANG_ROOT LLVM_ROOT
-# )
+gtclang_all_find_package(
+  PACKAGE Clang
+  PACKAGE_ARGS ${llvm_clang_version_short} REQUIRED
+  FORWARD_VARS CLANG_ROOT LLVM_ROOT
+  BUILD_VERSION ${llvm_clang_version}
+  VERSION_VAR LLVM_VERSION
+)
 
 #
 # GridTools
 #
-# TODO
 
 
 # Prepare and export CMake variables of the external projects

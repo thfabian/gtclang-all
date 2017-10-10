@@ -29,20 +29,23 @@ include(GTClangAllMakePackageInfo)
 # supplied by the system. Note that USE_SYSTEM_<PACKAGE> does not honor the user setting if 
 # the package cannot be found (i.e it will build it regardlessly).
 #
-#    PACKAGE:STRING=<>       - Name of the package (has to be the same name as used in 
-#                              find_package).
-#    PACKAGE_ARGS:LIST=<>    - Arguments passed to find_package.
-#    FORWARD_VARS:LIST=<>    - List of variables which are appended (if defined) to the 
-#                              GTCLANG_ALL_THIRDPARTY_CMAKE_ARGS. This are usually the variables 
-#                              which have an effect on the find_package call. For example, we may 
-#                              want to forward BOOST_ROOT if it was supplied by the user. 
-#    REQUIRED_VARS:LIST=<>   - Variables which need to be TRUE to consider the package as 
-#                              found. By default we check that ``<PACKAGE>_FOUND`` is TRUE.
-#    DEPENDS:LIST=<>         - Dependencies of this package.
+#    PACKAGE:STRING=<>        - Name of the package (has to be the same name as used in 
+#                               find_package).
+#    PACKAGE_ARGS:LIST=<>     - Arguments passed to find_package.
+#    FORWARD_VARS:LIST=<>     - List of variables which are appended (if defined) to the 
+#                               GTCLANG_ALL_THIRDPARTY_CMAKE_ARGS. This are usually the variables 
+#                               which have an effect on the find_package call. For example, we may 
+#                               want to forward BOOST_ROOT if it was supplied by the user. 
+#    REQUIRED_VARS:LIST=<>    - Variables which need to be TRUE to consider the package as 
+#                               found. By default we check that <PACKAGE>_FOUND is TRUE.
+#    VERSION_VAR:STRING=<>    - Name of the variable which is defined by the find_package command
+#                               if the package is found. By default we use <PACKAGE>_VERSION.
+#    BUILD_VERSION:STRING=<>  - Version of the package which is built (if required)
+#    DEPENDS:LIST=<>          - Dependencies of this package.
 #
 macro(gtclang_all_find_package)
   set(options)
-  set(one_value_args PACKAGE)
+  set(one_value_args PACKAGE BUILD_VERSION VERSION_VAR)
   set(multi_value_args PACKAGE_ARGS FORWARD_VARS REQUIRED_VARS DEPENDS)
   cmake_parse_arguments(ARG "${options}" "${one_value_args}" "${multi_value_args}" ${ARGN})
 
@@ -57,6 +60,8 @@ macro(gtclang_all_find_package)
 
   # Define the name of the target *if* we built it (targets are always lower-case for us)
   string(TOLOWER ${ARG_PACKAGE} target)
+
+  set(version "${ARG_BUILD_VERSION}")
 
   # Do we use the system package or build it from source? 
   set(doc "Should we use the system ${ARG_PACKAGE}?")
@@ -89,7 +94,9 @@ macro(gtclang_all_find_package)
       message(STATUS "Package ${ARG_PACKAGE} not found due to missing:${missing_required_vars}")    
     endif()
     
-    if(required_vars_ok AND (${ARG_PACKAGE}_FOUND OR ${ARG_PACKAGE}_DIR)) 
+    if(required_vars_ok AND (${ARG_PACKAGE}_FOUND   OR 
+                             ${package_upper}_FOUND OR
+                             ${ARG_PACKAGE}_DIR)) 
       set(use_system TRUE)
 
       # Forward arguments
@@ -99,6 +106,17 @@ macro(gtclang_all_find_package)
               "${GTCLANG_ALL_THIRDPARTY_CMAKE_ARGS};-D${var}:PATH=${${var}}")
         endif()
       endforeach()
+
+      # Try to detect the version we just found
+      if(DEFINED ARG_VERSION_VAR)
+        set(version "${${ARG_VERSION_VAR}}")
+      elseif(${ARG_PACKAGE}_VERSION)
+        set(version "${${ARG_PACKAGE}_VERSION}")
+      elseif(${package_upper}_VERSION)
+        set(version "${${package_upper}_VERSION}")
+      else()
+        set(version "unknown")
+      endif()
 
     else()
       set(USE_SYSTEM_${package_upper} OFF CACHE BOOL ${doc} FORCE)
@@ -115,5 +133,5 @@ macro(gtclang_all_find_package)
     endif()
   endif()
 
-  gtclang_all_make_package_info(${ARG_PACKAGE} ${use_system})
+  gtclang_all_make_package_info(${ARG_PACKAGE} ${version} ${use_system})
 endmacro()
