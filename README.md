@@ -13,7 +13,7 @@ This project solely requires a a C++11 compiler and [CMake](https://cmake.org/).
 git clone https://github.com/thfabian/gtclang-all.git --recursive
 mkdir build && cd build
 cmake ..
-make
+make -j4
 make install
 ```
 
