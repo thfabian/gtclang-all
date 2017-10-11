@@ -54,7 +54,6 @@ set(boost_download_version 1.${_v}.0)
 set(boost_url 
     "http://sourceforge.net/projects/boost/files/boost/1.${_v}.0/boost_1_${_v}_0.tar.gz/download")
 set(boost_md5 "7b493c08bc9557bbde7e29091f28b605")
-set(boost_components system)
 
 gtclang_all_find_package(
   PACKAGE Boost

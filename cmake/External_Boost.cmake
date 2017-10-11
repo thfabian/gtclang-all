@@ -20,14 +20,13 @@ if("${CMAKE_CURRENT_BINARY_DIR}" MATCHES " ")
   message(FATAL_ERROR "cannot use boost-bootstrap with a space in the name of the build diretory")
 endif()
 
-foreach(component ${boost_components})
-  list(APPEND boost_with_args --with-${component})
-endforeach()
+# Build system library which disables all other libraries
+set(boost_args "--with-system")
 
 if(BUILD_SHARED_LIBS)
-  list(APPEND boost_with_args "link=shared")
+  list(APPEND boost_args "link=shared")
 else()
-  list(APPEND boost_with_args "link=static")
+  list(APPEND boost_args "link=static")
 endif()
 
 ExternalProject_Add(boost
@@ -37,8 +36,8 @@ ExternalProject_Add(boost
   SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/boost"
   INSTALL_DIR "${GTCLANG_ALL_INSTALL_PREFIX}/boost"
   CONFIGURE_COMMAND ./bootstrap.sh --prefix=<INSTALL_DIR>
-  BUILD_COMMAND ./b2 address-model=64 ${boost_with_args}
-  INSTALL_COMMAND ./b2 address-model=64 ${boost_with_args} install
+  BUILD_COMMAND ./b2 --prefix=<INSTALL_DIR> address-model=64 ${boost_args}
+  INSTALL_COMMAND ./b2 --prefix=<INSTALL_DIR> address-model=64 ${boost_args} install
   BUILD_IN_SOURCE 1
 )
 
