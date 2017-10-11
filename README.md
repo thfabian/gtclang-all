@@ -7,7 +7,7 @@ This repository contains git submodules of the gtclang project: [Dawn](https://g
 
 ## Building
 
-This project solely requires a a C++11 compiler and [CMake](https://cmake.org/).
+This project **solely** requires a a C++11 compiler and [CMake](https://cmake.org/) (all other dependencies will be downloaded and locally installed if necessary).
 
 ```bash
 git clone https://github.com/thfabian/gtclang-all.git --recursive
@@ -25,12 +25,12 @@ This will install all the gtclang projects locally into `<gtclang-dir>/install/`
 
 |  Toolchain   | Config         |                                                     Status                                                          |
 |:-------------|:---------------|--------------------------------------------------------------------------------------------------------------------:|
-| GCC 5.4      | Release        |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang-all">![GCC 5.4][GCC_54_Release.Badge]</a>          |
-| GCC 5.4      | RelWithDebInfo |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang-all">![GCC 5.4][GCC_54_RelWithDebInfo.Badge]</a>   |
-| GCC 6.3      | Release        |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang-all">![GCC 6.3][GCC_63_Release.Badge]</a>          |
-| GCC 6.3      | RelWithDebInfo |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang-all">![GCC 6.3][GCC_63_RelWithDebInfo.Badge]</a>   |
-| Clang 4.0    | Release        |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang-all">![GCC 5.4][Clang_40_Release.Badge]</a>        |
-| Clang 4.0    | RelWithDebInfo |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang-all">![GCC 5.4][Clang_40_RelWithDebInfo.Badge]</a> |
+| GCC 5.4      | Release        |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang">![GCC 5.4][GCC_54_Release.Badge]</a>          |
+| GCC 5.4      | RelWithDebInfo |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang">![GCC 5.4][GCC_54_RelWithDebInfo.Badge]</a>   |
+| GCC 6.3      | Release        |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang">![GCC 6.3][GCC_63_Release.Badge]</a>          |
+| GCC 6.3      | RelWithDebInfo |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang">![GCC 6.3][GCC_63_RelWithDebInfo.Badge]</a>   |
+| Clang 4.0    | Release        |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang">![GCC 5.4][Clang_40_Release.Badge]</a>        |
+| Clang 4.0    | RelWithDebInfo |  <a target="_blank" href="https://travis-ci.org/thfabian/gtclang">![GCC 5.4][Clang_40_RelWithDebInfo.Badge]</a> |
 
 ## About
 
@@ -44,14 +44,14 @@ Significant contributions were made by Fabian Thuering (Master Thesis), Carlos O
 This project is licensed under the terms of the **MIT** license.
 
 <!-- Links -->
-[TravisCI]: https://travis-ci.org/thfabian/gtclang-all
-[TravisCI.Badge]: https://travis-ci.org/thfabian/gtclang-all.svg?branch=master
+[TravisCI]: https://travis-ci.org/thfabian/gtclang
+[TravisCI.Badge]: https://travis-ci.org/thfabian/gtclang.svg?branch=master
 [Documentation.Badge]: https://img.shields.io/badge/documentation-link-blue.svg
 [MIT.License]: https://img.shields.io/badge/License-MIT-blue.svg
-[Version.Badge]: https://badge.fury.io/gh/thfabian%2Fgtclang-all.svg
-[GCC_54_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang-all/branches/master/3
-[GCC_54_RelWithDebInfo.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang-all/branches/master/4
-[GCC_63_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang-all/branches/master/5
-[GCC_63_RelWithDebInfo.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang-all/branches/master/6
-[Clang_40_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang-all/branches/master/7
-[Clang_40_RelWithDebInfo.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang-all/branches/master/8
+[Version.Badge]: https://badge.fury.io/gh/thfabian%2Fgtclang.svg
+[GCC_54_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang/branches/master/3
+[GCC_54_RelWithDebInfo.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang-/branches/master/4
+[GCC_63_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang/branches/master/5
+[GCC_63_RelWithDebInfo.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang/branches/master/6
+[Clang_40_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang/branches/master/7
+[Clang_40_RelWithDebInfo.Badge]: https://travis-matrix-badges.herokuapp.com/repos/thfabian/gtclang/branches/master/8
