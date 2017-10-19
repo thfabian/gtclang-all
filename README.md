@@ -1,4 +1,4 @@
-gtclang-all <br/> <a target="_blank" href="http://semver.org">![Version][Version.Badge]</a> <a target="_blank" href="https://travis-ci.org/thfabian/gtclang">![Travis status][TravisCI.Badge]</a> <a target="_blank" href="https://opensource.org/licenses/MIT">![License: MIT][MIT.License]</a>
+gtclang-all <br/> <a target="_blank" href="http://semver.org">![Version][Version.Badge]</a> <a target="_blank" href="https://travis-ci.org/MeteoSwiss-APN/gtclang">![Travis status][TravisCI.Badge]</a> <a target="_blank" href="https://opensource.org/licenses/MIT">![License: MIT][MIT.License]</a>
 ===========
 
 **gtclang** is a source-to-source compiler with a high level DSL (Domain-Specifc Language) to execute stencil-like computations on a variety of different parallel architectures. The target applications for gtclang are regional weather models (regular grids) as well as global weather and climate simulations (irregular grids). gtclang is built on top of the LLVM/Clang compiler framework and [Dawn](https://github.com/MeteoSwiss-APN/dawn) and produces highly optimized C++ source code for the gridtools library.
@@ -10,7 +10,7 @@ This repository contains git submodules of the gtclang project: [Dawn](https://g
 This project **solely** requires a a C++11 compiler and [CMake](https://cmake.org/) (all other dependencies will be downloaded and locally installed if necessary).
 
 ```bash
-git clone https://github.com/thfabian/gtclang-all.git --recursive
+git clone https://github.com/MeteoSwiss-APN/gtclang-all.git --recursive
 mkdir build && cd build
 cmake ..
 make -j4
@@ -48,11 +48,11 @@ Significant contributions were made by Fabian Thuering (Master Thesis), Carlos O
 This project is licensed under the terms of the **MIT** license.
 
 <!-- Links -->
-[TravisCI]: https://travis-ci.org/thfabian/gtclang
-[TravisCI.Badge]: https://travis-ci.org/thfabian/gtclang.svg?branch=master
+[TravisCI]: https://travis-ci.org/MeteoSwiss-APN/gtclang
+[TravisCI.Badge]: https://travis-ci.org/MeteoSwiss-APN/gtclang.svg?branch=master
 [Documentation.Badge]: https://img.shields.io/badge/documentation-link-blue.svg
 [MIT.License]: https://img.shields.io/badge/License-MIT-blue.svg
-[Version.Badge]: https://badge.fury.io/gh/thfabian%2Fgtclang.svg
+[Version.Badge]: https://badge.fury.io/gh/MeteoSwiss-APN%2Fgtclang.svg
 [GCC_54_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/MeteoSwiss-APN/gtclang/branches/master/3
 [GCC_54_RelWithDebInfo.Badge]: https://travis-matrix-badges.herokuapp.com/repos/MeteoSwiss-APN/gtclang/branches/master/4
 [GCC_63_Release.Badge]: https://travis-matrix-badges.herokuapp.com/repos/MeteoSwiss-APN/gtclang/branches/master/5
