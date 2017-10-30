@@ -19,6 +19,7 @@ include(ExternalProject)
 set(cmake_args
   ${GTCLANG_ALL_PACKAGE_CMAKE_ARGS}
   -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+  -DBUILD_SHARED_LIBS=ON                                                         
   -Dprotobuf_BUILD_EXAMPLES=OFF
   -Dprotobuf_BUILD_SHARED_LIBS=ON
   -Dprotobuf_BUILD_TESTS=OFF
