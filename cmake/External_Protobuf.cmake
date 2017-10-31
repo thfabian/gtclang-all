@@ -65,7 +65,7 @@ ExternalProject_Add(protobuf-python
 )
 add_dependencies(protobuf-python protobuf-cpp)
 
-# Glob target
+# Combined target
 add_custom_target(protobuf COMMAND "")
 add_dependencies(protobuf protobuf-python protobuf-cpp)
 
