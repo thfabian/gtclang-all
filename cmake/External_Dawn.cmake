@@ -33,7 +33,7 @@ ExternalProject_Add(dawn
    SOURCE_DIR ${dawn_source}
    BINARY_DIR ${dawn_build}
    INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-   CMAKE_CACHE_ARGS
+   CMAKE_ARGS
      ${dawn_cmake_args}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
    DEPENDS

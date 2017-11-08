@@ -33,7 +33,7 @@ ExternalProject_Add(gtclang
    SOURCE_DIR ${gtclang_source}
    BINARY_DIR ${gtclang_build}
    INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-   CMAKE_CACHE_ARGS
+   CMAKE_ARGS
      ${gtclang_cmake_args}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
    DEPENDS
