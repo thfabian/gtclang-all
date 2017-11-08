@@ -17,7 +17,7 @@ make -j4
 make install
 ```
 
-In order to compile with an specific version of a compiler, pass the argument `-DCMAKE_CXX_COMPILER=<g++-version>` to the cmake.
+In order to compile with an specific version of a compiler, pass the argument `-DCMAKE_CXX_COMPILER=<g++-version>` to CMake.
 
 This will install all the gtclang projects locally into `<gtclang-dir>/install/`. Note that it is *important* to clone the repository **recursively**.
 
