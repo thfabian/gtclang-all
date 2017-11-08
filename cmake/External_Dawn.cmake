@@ -23,7 +23,7 @@ foreach(option ${DAWN_OPTIONS})
   list(APPEND dawn_cmake_args "-D${option}:BOOL=${${option}}")
 endforeach()
 
-set(dawn_source "${CMAKE_CURRENT_SOURCE_DIR}/dawn")
+set(dawn_source "${GTCLANG_ALL_DAWN_SOURCE_DIR}")
 set(dawn_build "${CMAKE_CURRENT_BINARY_DIR}/dawn")
 
 gtclang_all_add_optional_deps(dawn_deps protobuf)
