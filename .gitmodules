@@ -1,8 +1,0 @@
-[submodule "dawn"]
-	path = dawn
-	url = https://github.com/thfabian/dawn
-	branch = master
-[submodule "gtclang"]
-	path = gtclang
-	url = https://github.com/thfabian/gtclang
-	branch = master
