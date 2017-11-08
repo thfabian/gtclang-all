@@ -13,6 +13,10 @@
 build*/
 install*
 
+# Ignore project source dirs
+dawn/
+gtclang/
+
 # Shared library in source dir
 *.so
 *.dylib
