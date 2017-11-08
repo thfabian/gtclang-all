@@ -46,7 +46,7 @@ configure_file(${install_script_in} ${install_script} @ONLY)
 
 
 # C++ protobuf
-ExternalProject_Add(protobuf-cpp
+ExternalProject_Add(protobuf
   DOWNLOAD_DIR ${GTCLANG_ALL_DOWNLOAD_DIR}
   URL ${protobuf_url}
   URL_MD5 ${protobuf_md5}
@@ -56,16 +56,12 @@ ExternalProject_Add(protobuf-cpp
   STEP_TARGETS python-build 
 )
 ExternalProject_Add_Step(
-  protobuf-cpp python-build
+  protobuf python-build
   COMMAND ${BASH_EXECUTABLE} ${install_script}
   DEPENDEES build
 )
 
-ExternalProject_Get_Property(protobuf-cpp install_dir)
+ExternalProject_Get_Property(protobuf install_dir)
 set(Protobuf_DIR "${install_dir}/lib/cmake/protobuf" CACHE INTERNAL "")
-
-# Combined target
-add_custom_target(protobuf COMMAND "")
-add_dependencies(protobuf protobuf-cpp )
 
 list(APPEND GTCLANG_ALL_THIRDPARTY_CMAKE_ARGS "-DProtobuf_DIR:PATH=${Protobuf_DIR}")
