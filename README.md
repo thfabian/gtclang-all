@@ -10,16 +10,21 @@ This repository contains git submodules of the gtclang project: [Dawn](https://g
 This project **solely** requires a a C++11 compiler and [CMake](https://cmake.org/) (all other dependencies will be downloaded and locally installed if necessary).
 
 ```bash
-git clone https://github.com/MeteoSwiss-APN/gtclang-all.git --recursive
+git clone https://github.com/MeteoSwiss-APN/gtclang-all.git
 mkdir build && cd build
 cmake ..
 make -j4
 make install
 ```
 
-In order to compile with an specific version of a compiler, pass the argument `-DCMAKE_CXX_COMPILER=<g++-version>` to CMake.
+This will clone [Dawn](https://github.com/MeteoSwiss-APN/dawn) and [gtclang](https://github.com/MeteoSwiss-APN/gtclang) in to top level project directory. Note that by default the master branch of the MeteoSwiss repositories is cloned via SSH adresses. To alter this behavior you may specify an alternative URL via `DAWN_GIT_URL` and `GTCLANG_GIT_URL` and select a different branch via `DAWN_GIT_BRANCH` and `GTCLANG_GIT_BRANCH`, respectively.
+For example, to directly clone your own forks:
+```bash
+cmake .. -DDAWN_GIT_URL=https://github.com/<username>/gtclang.git     \
+         -DGTCLANG_GIT_URL=https://github.com/<username>/gtclang.git
+```
 
-This will install all the gtclang projects locally into `<gtclang-dir>/install/`. Note that it is *important* to clone the repository **recursively**.
+After `make install` has finished succesfully, you may find the local installation in the top level `install/` directory.
 
 ## Continuous Integration
 
