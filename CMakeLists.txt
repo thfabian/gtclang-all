@@ -33,8 +33,6 @@ cmake_minimum_required(VERSION 3.3)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-include(GTClangAllDefinitions)
-
 # Make sure all git submodules are up-to-date (Dawn and gtclang)
 include(GTClangAllGitInit)
 gtclang_all_git_submodule_init()
@@ -64,8 +62,14 @@ dawn_check_in_source_build()
 
 # Add custom targets
 dawn_add_target_clean_all(
-  "${CMAKE_BINARY_DIR}/prefix"  
-  "${CMAKE_BINARY_DIR}/thirdparty"
+  "${CMAKE_BINARY_DIR}/prefix"
+  "${CMAKE_BINARY_DIR}/thirdparty"  
+  "${CMAKE_BINARY_DIR}/dawn-cmake"  
+  "${CMAKE_BINARY_DIR}/dawn"
+  "${CMAKE_BINARY_DIR}/dawn-prefix"
+  "${CMAKE_BINARY_DIR}/gtclang"
+  "${CMAKE_BINARY_DIR}/gtclang-prefix"
+  "${CMAKE_BINARY_DIR}/Makefile"
 )
 
 # Output summary of the configuration
