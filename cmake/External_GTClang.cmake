@@ -23,7 +23,7 @@ foreach(option ${GTCLANG_OPTIONS})
   list(APPEND gtclang_cmake_args "-D${option}:BOOL=${${option}}")
 endforeach()
 
-set(gtclang_source "${CMAKE_CURRENT_SOURCE_DIR}/gtclang")
+set(gtclang_source "${GTCLANG_ALL_GTCLANG_SOURCE_DIR}")
 set(gtclang_build "${CMAKE_CURRENT_BINARY_DIR}/gtclang")
 
 gtclang_all_add_optional_deps(gtclang_deps boost clang)
@@ -33,7 +33,7 @@ ExternalProject_Add(gtclang
    SOURCE_DIR ${gtclang_source}
    BINARY_DIR ${gtclang_build}
    INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-   CMAKE_CACHE_ARGS
+   CMAKE_ARGS
      ${gtclang_cmake_args}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
    DEPENDS

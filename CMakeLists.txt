@@ -33,15 +33,22 @@ cmake_minimum_required(VERSION 3.3)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-include(GTClangAllDefinitions)
+# Make sure dawn and gtclang are present
+set(DAWN_GIT_URL "git@github.com:MeteoSwiss-APN/dawn.git" 
+    CACHE PATH "URL of the dawn git repository to clone")
+set(DAWN_GIT_BRANCH "master" CACHE STRING "Branch of the dawn git repository to clone")
 
-# Make sure all git submodules are up-to-date (Dawn and gtclang)
-include(GTClangAllGitInit)
-gtclang_all_git_submodule_init()
+set(GTCLANG_GIT_URL "git@github.com:MeteoSwiss-APN/gtclang.git" 
+    CACHE PATH "URL of the gtclang git repository to clone")
+set(GTCLANG_GIT_BRANCH "master" CACHE STRING "URL of the gtclang git repository to clone")
+
+include(GTClangAllCloneRepository)
+gtclang_all_clone_repository(NAME dawn URL ${DAWN_GIT_URL} BRANCH ${DAWN_GIT_BRANCH})
+gtclang_all_clone_repository(NAME gtclang URL ${GTCLANG_GIT_URL} BRANCH ${GTCLANG_GIT_BRANCH})
 
 # Bootstrap Dawn CMake modules
 include(DawnCMakeInit)
-set(DAWN_ROOT "${CMAKE_CURRENT_LIST_DIR}/dawn")
+set(DAWN_ROOT "${GTCLANG_ALL_DAWN_SOURCE_DIR}")
 dawn_cmake_init()
 
 include(DawnAddTargetCleanAll)
@@ -64,8 +71,14 @@ dawn_check_in_source_build()
 
 # Add custom targets
 dawn_add_target_clean_all(
-  "${CMAKE_BINARY_DIR}/prefix"  
-  "${CMAKE_BINARY_DIR}/thirdparty"
+  "${CMAKE_BINARY_DIR}/prefix"
+  "${CMAKE_BINARY_DIR}/thirdparty"  
+  "${CMAKE_BINARY_DIR}/dawn-cmake"  
+  "${CMAKE_BINARY_DIR}/dawn"
+  "${CMAKE_BINARY_DIR}/dawn-prefix"
+  "${CMAKE_BINARY_DIR}/gtclang"
+  "${CMAKE_BINARY_DIR}/gtclang-prefix"
+  "${CMAKE_BINARY_DIR}/Makefile"
 )
 
 # Output summary of the configuration
