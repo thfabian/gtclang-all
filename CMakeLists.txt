@@ -35,11 +35,11 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Make sure dawn and gtclang are present
 set(DAWN_GIT_URL "git@github.com:MeteoSwiss-APN/dawn.git" 
-    CACHE PATH "URL of the dawn git repository to clone")
+    CACHE STRING "URL of the dawn git repository to clone")
 set(DAWN_GIT_BRANCH "master" CACHE STRING "Branch of the dawn git repository to clone")
 
 set(GTCLANG_GIT_URL "git@github.com:MeteoSwiss-APN/gtclang.git" 
-    CACHE PATH "URL of the gtclang git repository to clone")
+    CACHE STRING "URL of the gtclang git repository to clone")
 set(GTCLANG_GIT_BRANCH "master" CACHE STRING "URL of the gtclang git repository to clone")
 
 include(GTClangAllCloneRepository)
